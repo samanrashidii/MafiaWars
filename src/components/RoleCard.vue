@@ -3,41 +3,42 @@
             <div class="name-container">
                 <div 
                     class="player-names" 
-                    v-for="(item, index) in players" 
-                    v-bind:key="item"   
+                    v-for="(player, index) in players" 
+                    v-bind:key="player"   
                 >
                 <Strong 
                     v-if="(index + 1) === personNumber"
                 >
-                    {{ item }}
+                    {{ player }}
                 </Strong>
                 </div>
             </div>
+        <div class="role-invisble" v-if="!roleShow">
         <ul class='player-cards'>
             <li
                 class="single-player"
-                :class="{'mafia':item.mafia && selectedIndex == index  ,
-                         'solo': item.solo && selectedIndex == index ,
-                         'citizen': roleShow && !item.solo && !item.mafia && selectedIndex == index 
+                :class="{'mafia':role.mafia && selectedIndex == index  ,
+                         'solo': role.solo && selectedIndex == index ,
+                         'citizen': roleShow && !role.solo && !role.mafia && selectedIndex == index 
                 }"
-                @click="selectItem(index, item.id)"
-                v-for="(item, index) in localSelectedRoles" 
-                :key="item.id"
+                @click="selectItem(index, role.id)"
+                v-for="(role, index) in localSelectedRoles" 
+                :key="role.id"
              >
              <div
                 class="text-image"
                 :class="{
-                'mafia': item.mafia,
-                'solo': item.solo,
+                'mafia': role.mafia,
+                'solo': role.solo,
             }">
                 <img
                     v-if="selectedIndex === index"
-                    :src="getImg('/roles', item.icon)" alt="sadra" 
+                    :src="getImg('/roles', role.icon)" alt="roleImage" 
                  >
                     <div
                         v-if="selectedIndex === index"
                     >
-                        <strong>{{ item.info[currentLang].name }}</strong>
+                        <strong>{{ role.info[currentLang].name }}</strong>
                     </div>
                 <p 
                     v-else
@@ -47,6 +48,10 @@
              </div>
             </li>
         </ul>
+        </div>
+        <div class="role-invisble" v-else>
+
+        </div>
         <BaseButton 
         class="green" 
         @clicked="nextPerson()"
@@ -72,13 +77,10 @@ export default {
   },
     data () {
         return {
-        activeIndex: null,
         personNumber: 1,
         roleShow: false,
         selectedIndex: -1,
         localSelectedRoles: [],
-        tempPlayers: [],
-        alertBox: false,
         }
     },
     mounted() {
@@ -86,10 +88,10 @@ export default {
 
     },
     methods: {
+        //when someone clicks on the next button it will move to the next person and if the player who clicks on the button is the last it will move to the next step
         nextPerson() {
-            if(this.personNumber == this.gameSettings.selectedRoles.length || this.localSelectedRoles.length == 0) {
+            if(this.personNumber == this.gameSettings.selectedRoles.length) {
                 this.gameSettings.stepCounter = 3
-                this.tempPlayers = []
                 this.SetGameSettings(this.gameSettings)  
             }else {
                 this.personNumber++   
@@ -99,14 +101,16 @@ export default {
             this.selectedIndex = -1
         },
         selectItem (index, id) {
+            //if the player selects a card and the index is -1 means that no player is selected so the action needs to show the roles 
             if (this.selectedIndex == -1) {
                 this.roleShow = true
                 this.selectedIndex = index
+                //this is the part where you find the role in the local storage and if the role exists in the local storage you would assign it to the player
                 const selectedRole = this.gameSettings.selectedRoles.find(role => role.id === id) 
                 if(selectedRole) {
                     selectedRole.player = this.players[this.personNumber - 1]
                 } 
-            }   
+            }  
         },
     },
 }
