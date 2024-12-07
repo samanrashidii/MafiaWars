@@ -52,7 +52,9 @@ background-color: $background_color_mafia;
   font-family: $font_mafia;
   font-size: $font_size_medium;
 }
-.text-image p {
-  font-family: $font_normal;
-  font-size: $font_size_5;
+
+.player-names strong {
+  color : $primary;
+  font-family: $font_mafia_rtl;
+  font-size: $font_size_super_big;
 }

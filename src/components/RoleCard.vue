@@ -4,13 +4,13 @@
                 <div 
                     class="player-names" 
                     v-for="(item, index) in players" 
-                    v-bind:key="item"
+                    v-bind:key="item"   
                 >
-                <p 
+                <Strong 
                     v-if="(index + 1) === personNumber"
                 >
                     {{ item }}
-                </p>
+                </Strong>
                 </div>
             </div>
         <ul class='player-cards'>
@@ -47,12 +47,13 @@
              </div>
             </li>
         </ul>
-        <BaseButton class="green" 
-                @clicked="nextPerson()"
-                v-if="roleShow"
+        <BaseButton 
+        class="green" 
+        @clicked="nextPerson()"
+        v-if="roleShow"
              >
                 {{$t('pages.home.passMobile')}}
-            </BaseButton> 
+        </BaseButton> 
         </div>
 </template>
 
