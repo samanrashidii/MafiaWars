@@ -1,18 +1,18 @@
 <template>
-    <div class="main-container">
-        <div class="name-container">
-        <div 
-            class="player-names" 
-            v-for="(item, index) in players" 
-            v-bind:key="item"
-        >
-        <p 
-            v-if="(index + 1) === personNumber"
-        >
-            {{ item }}
-        </p>
-        </div>
-        </div>
+        <div class="main-container">
+            <div class="name-container">
+                <div 
+                    class="player-names" 
+                    v-for="(item, index) in players" 
+                    v-bind:key="item"
+                >
+                <p 
+                    v-if="(index + 1) === personNumber"
+                >
+                    {{ item }}
+                </p>
+                </div>
+            </div>
         <ul class='player-cards'>
             <li
                 class="single-player"
@@ -25,10 +25,10 @@
                 :key="item.id"
              >
              <div
-             class="text-image"
-            :class="{
-            'mafia': item.mafia,
-            'solo': item.solo,
+                class="text-image"
+                :class="{
+                'mafia': item.mafia,
+                'solo': item.solo,
             }">
                 <img
                     v-if="selectedIndex === index"
@@ -53,7 +53,7 @@
              >
                 {{$t('pages.home.passMobile')}}
             </BaseButton> 
-    </div>
+        </div>
 </template>
 
 
@@ -76,15 +76,19 @@ export default {
         roleShow: false,
         selectedIndex: -1,
         localSelectedRoles: [],
+        tempPlayers: [],
+        alertBox: false,
         }
     },
     mounted() {
         this.localSelectedRoles = this.shuffle([...this.gameSettings.selectedRoles])
+
     },
     methods: {
         nextPerson() {
             if(this.personNumber == this.gameSettings.selectedRoles.length || this.localSelectedRoles.length == 0) {
                 this.gameSettings.stepCounter = 3
+                this.tempPlayers = []
                 this.SetGameSettings(this.gameSettings)  
             }else {
                 this.personNumber++   
@@ -100,7 +104,7 @@ export default {
                 const selectedRole = this.gameSettings.selectedRoles.find(role => role.id === id) 
                 if(selectedRole) {
                     selectedRole.player = this.players[this.personNumber - 1]
-                }
+                } 
             }   
         },
     },
