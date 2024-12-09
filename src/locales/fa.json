@@ -215,7 +215,8 @@
             "gotMobile": "نقشت رو با دقت ببین :",
             "beforeShowButton": "نقش من رو نشان بده !",
             "afterShowButton": "متوجه شدم",
-            "showCharacter" : "انتخاب نقش"
+            "showCharacter" : "انتخاب نقش",
+            "roleCard" : "نقش"
         },
         "about": {
             "image": "logo.png",

@@ -28,11 +28,14 @@
                 v-for="(role, index) in localSelectedRoles" 
                 :key="role.id"
              >
-             Role
+             {{ $t('pages.home.roleCard') }} {{ personNumber + index}}
             </li>
         </ul>
     </div>
         <div class="role-visible" v-if="roleShow">
+            <p>
+      {{ $t('pages.home.gotMobile') }}
+        </p>
             <div
                 class="role-info"
                 :class="{
