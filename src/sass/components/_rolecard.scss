@@ -27,15 +27,6 @@
   margin-top: 5px;
   padding: 5px 7px;
 }
-.single-player.citizen {
-  background-color: $background_color_citizen;
-}
-.single-player.mafia {
-background-color: $background_color_mafia;
-}
-.single-player.solo {
-  background-color: $background_color_solo;
-}
 .text-image {
   display: flex;
   flex-direction: column;
@@ -53,8 +44,89 @@ background-color: $background_color_mafia;
   font-size: $font_size_medium;
 }
 
+
+.role-visible { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  flex-direction: column;
+}
+.main-container { 
+  .player-display{
+    min-height: 320px;
+    a.bttn{
+        max-width: 240px;
+    }
+    strong{
+      display: block;
+      font-family: $font_mafia_rtl;
+      font-size: $font_size_super_big;
+      color:$primary;
+      word-break: break-word;
+      transition:all .4s ease-in-out;
+      &.mafia-color{
+          color:$background_color_mafia;
+      }
+      &.citizen-color{
+          color:$background_color_citizen;
+      }
+  }
+  a.bttn{
+      margin:15px auto 0 auto;
+  }
+    .role-info{
+      position: relative;
+      display: inline-block;
+      min-width: 162px;
+      min-height: 162px;
+      font-family: $font_mafia;
+      font-size: 30px;
+      color:$color_site_4;
+      padding:30px 25px;
+      margin:10px 0 7px 0;
+      background-color: $background_color_4;
+      border:3px solid $background_color_mafia;
+      border-radius: $circle_radius;
+      img{
+          width:64px;
+          height:64px;
+      }
+      &::after{
+          content:'';
+          position: absolute;
+          top:5px;
+          left:5px;
+          display: block;
+          width:calc(100% - 10px);
+          height:calc(100% - 10px);
+          border:6px solid $background_color_mafia;
+          border-radius: $circle_radius;
+      }
+      &.citizen{
+          border-color: $background_color_citizen;
+          &::after{
+              border-color: $background_color_citizen;
+          }
+      }
+      &.solo{
+          border-color: $background_color_solo;
+          &::after{
+              border-color: $background_color_solo;
+          }
+      }
+    }
+  }
+}
 .player-names strong {
+  display: block;
   color : $primary;
   font-family: $font_mafia_rtl;
   font-size: $font_size_super_big;
+  &.mafia-color{
+    color:$background_color_mafia;
+}
+  &.citizen-color{
+      color:$background_color_citizen;
+  }
 }

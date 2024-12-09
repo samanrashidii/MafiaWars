@@ -1,71 +1,70 @@
 <template>
-        <div class="main-container">
-            <div class="name-container">
+<div class="main-container">
+        <div class="name-container">
                 <div 
                     class="player-names" 
+                    
                     v-for="(player, index) in players" 
                     v-bind:key="player"   
                 >
                 <Strong 
+                :class="roleShow ? {
+                'mafia-color': userSelectedRole.mafia,
+                'solo-color': !userSelectedRole.mafia && userSelectedRole.solo,
+                'citizen-color': !userSelectedRole.mafia && !userSelectedRole.solo}
+                : ''"
                     v-if="(index + 1) === personNumber"
                 >
                     {{ player }}
                 </Strong>
                 </div>
-            </div>
+        </div>
+    <div class="player-display">
         <div class="role-invisble" v-if="!roleShow">
-        <ul class='player-cards'>
-            <li
+        <ul class='player-cards' >
+            <li 
                 class="single-player"
-                :class="{'mafia':role.mafia && selectedIndex == index  ,
-                         'solo': role.solo && selectedIndex == index ,
-                         'citizen': roleShow && !role.solo && !role.mafia && selectedIndex == index 
-                }"
-                @click="selectItem(index, role.id)"
+                @click="selectItem(index, role)"
                 v-for="(role, index) in localSelectedRoles" 
                 :key="role.id"
              >
-             <div
-                class="text-image"
-                :class="{
-                'mafia': role.mafia,
-                'solo': role.solo,
-            }">
-                <img
-                    v-if="selectedIndex === index"
-                    :src="getImg('/roles', role.icon)" alt="roleImage" 
-                 >
-                    <div
-                        v-if="selectedIndex === index"
-                    >
-                        <strong>{{ role.info[currentLang].name }}</strong>
-                    </div>
-                <p 
-                    v-else
-                >
-                {{$t('pages.home.showCharacter')}}
-                </p>
-             </div>
+             Role
             </li>
         </ul>
+    </div>
+        <div class="role-visible" v-if="roleShow">
+            <div
+                class="role-info"
+                :class="{
+                    'solo': !userSelectedRole.mafia && userSelectedRole.solo,
+                    'citizen': !userSelectedRole.mafia && !userSelectedRole.solo
+                }"
+                >
+                <img
+                    :src="getImg('/roles', userSelectedRole.icon)"
+                    :alt="userSelectedRole.info[currentLang].name"
+                >
+                <h4>
+                    {{ userSelectedRole.info[currentLang].name }}
+                </h4>
+            </div>
+                    <BaseButton
+                    class="awesome"
+                    @clicked="nextPerson()"
+                    >
+                    {{ $t('pages.home.afterShowButton') }}
+            </BaseButton>
+      
         </div>
-        <div class="role-invisble" v-else>
-
-        </div>
-        <BaseButton 
-        class="green" 
-        @clicked="nextPerson()"
-        v-if="roleShow"
-             >
-                {{$t('pages.home.passMobile')}}
-        </BaseButton> 
-        </div>
+    </div>
+</div>
+       
 </template>
 
 
 
 <script>
-import shuffleMixin from '../mixins/global'
+import shuffleMixin from '../mixins/global';
 export default {
     mixins: [shuffleMixin],
     name: 'PlayerCard',
@@ -81,8 +80,10 @@ export default {
         roleShow: false,
         selectedIndex: -1,
         localSelectedRoles: [],
+        userSelectedRole: null
         }
     },
+   
     mounted() {
         this.localSelectedRoles = this.shuffle([...this.gameSettings.selectedRoles])
 
@@ -100,18 +101,22 @@ export default {
             this.roleShow = false
             this.selectedIndex = -1
         },
-        selectItem (index, id) {
+        selectItem (index, clickedRole) {
             //if the player selects a card and the index is -1 means that no player is selected so the action needs to show the roles 
             if (this.selectedIndex == -1) {
                 this.roleShow = true
                 this.selectedIndex = index
+                this.userSelectedRole = clickedRole
                 //this is the part where you find the role in the local storage and if the role exists in the local storage you would assign it to the player
-                const selectedRole = this.gameSettings.selectedRoles.find(role => role.id === id) 
+                const selectedRole = this.gameSettings.selectedRoles.find(role => role.id === clickedRole.id) 
                 if(selectedRole) {
                     selectedRole.player = this.players[this.personNumber - 1]
                 } 
             }  
         },
+        resetShowRole() {
+            this.roleShow = false
+        }
     },
 }
 </script>
