@@ -17,7 +17,7 @@
   width: 30%;
   height: auto !important;
   min-height: 150px;
-  background-color:$background_color_6;
+  box-shadow: 0 0 5px $black_color;
   border-radius: 15px;
   flex: 0 0 30%;
   margin-top: 2.5%;
@@ -26,6 +26,7 @@
   align-items: center;
   margin-top: 5px;
   padding: 5px 7px;
+  cursor: pointer;
 }
 .text-image {
   display: flex;
