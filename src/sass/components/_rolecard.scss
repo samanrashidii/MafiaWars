@@ -1,0 +1,115 @@
+.name-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.player-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.single-player {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  height: auto !important;
+  min-height: 150px;
+  box-shadow: 0 0 5px $black_color;
+  border-radius: 15px;
+  flex: 0 0 30%;
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  padding: 5px 7px;
+  cursor: pointer;
+}
+.text-image {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.text-image img {
+  width: 70%;
+  height: 70%;
+}
+.text-image strong {
+  font-family: $font_mafia;
+  font-size: $font_size_medium;
+}
+
+
+.role-visible { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  flex-direction: column;
+}
+
+.role-info{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 162px;
+  min-height: 162px;
+  font-family: $font_mafia;
+  font-size: 30px;
+  color:$color_site_4;
+  padding:30px 25px;
+  margin:10px 0 7px 0;
+  background-color: $background_color_4;
+  border:3px solid $background_color_mafia;
+  border-radius: $circle_radius;
+  img{
+      width:64px;
+      height:64px;
+  }
+  &::after{
+      content:'';
+      position: absolute;
+      top:5px;
+      left:5px;
+      display: block;
+      width:calc(100% - 10px);
+      height:calc(100% - 10px);
+      border:6px solid $background_color_mafia;
+      border-radius: $circle_radius;
+  }
+  &.citizen{
+      border-color: $background_color_citizen;
+      &::after{
+          border-color: $background_color_citizen;
+      }
+  }
+  &.solo{
+      border-color: $background_color_solo;
+      &::after{
+          border-color: $background_color_solo;
+      }
+  }
+}
+a.bttn {
+  min-width: 250px;
+}
+.player-names strong {
+  display: block;
+  color : $primary;
+  font-family: $font_mafia_rtl;
+  font-size: $font_size_super_big;
+  &.mafia-color{
+    color:$background_color_mafia;
+}
+  &.citizen-color{
+      color:$background_color_citizen;
+  }
+}

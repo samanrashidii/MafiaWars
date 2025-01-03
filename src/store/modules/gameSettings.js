@@ -35,7 +35,7 @@ export default {
       hasSavedGame: false,
       winner: null,
       soloWins: false,
-      soloWinnner: null,
+      soloWinnner: null, //winner
       safemode: false,
       reviewGame: false,
       stepCounter: 1,

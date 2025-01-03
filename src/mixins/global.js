@@ -177,6 +177,10 @@ export default {
       if (this.gameSettings.discordChannel || staticUrl) {
         this.PostToDiscord(discordPayload)
       }
-    }
+    },
+    shuffle (array) {
+      const output = array.sort(() => Math.random() - 0.5)
+      return output
+    },
   }
 }
